@@ -1,0 +1,63 @@
+{% extends 'web/base.html'%}
+{% block body %}
+
+<!-- search input -->
+<div class="container text-center">
+<div class="container-xxl">
+    <div class="col-xs-6 col-xs-offset-3">
+        <form class="d-flex" role="search" method="get" action=''>
+            <input class="form-control me-2"  aria-label="Search" type="text" name="q" value="{{ request.GET.q }}" placeholder= "Search Movies ">
+            <button class="btn btn-outline-primary" type="submit">Search</button>
+          </form>
+    </div>
+</div>  
+</div>
+
+    {% if messages %}
+            <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %} >{{ message }}</li>
+            {% endfor %}
+            </ul>
+    {% endif %}
+    <div class="container-xxl">
+    <div class="row">
+        <div class="col-sm-2 col-md-3">
+		<h1>Movies List</h1>
+        </div>
+        <div class="col-xs-offset-9  mt-3">
+        <a href="{% url 'recommend' %}" class="btn btn-primary btn-sm"><strong><h2>Get Recommendation</h2></strong></a>
+        </div>
+    </div>
+	</div>
+	<div class="container-xxl">
+    
+    <!-- Movie list -->
+    <div class="row">
+            {% if movies %}
+            {% for movie in movies %}
+                <div class="col-sm-2  p-2">
+                        <div class="card">
+                            <div class="card-header" href="{% url 'detail' movie.id %}">
+                                <h4>{{movie.title}}</h4>
+                            </div>
+                            <a class="card shadow-sm" >
+                                <!--<a href="{% url 'detail' movie.id %}">-->
+                                <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2{{ movie.img_url}}" class="card-img-top">
+                            </a>
+                        <div class="card-body">
+                            
+                            <p class="card-text">{{movie.genre}}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="{% url 'detail' movie.id %}" class="btn btn-primary btn-sm" role="button">Give Rating</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+        </div>
+    
+</div>
+
+{% endblock %}
