@@ -1,6 +1,6 @@
-# Classic Cinema Recommender
+# Memory Reels
 
-Welcome to **Classic Cinema Recommender**, your go-to source for discovering and enjoying timeless movie masterpieces. Whether you're a seasoned cinephile or a curious newcomer, our platform is designed to help you explore and rediscover the magic of old movies.
+Welcome to **Memory Reels**, your go-to source for discovering and enjoying timeless movie masterpieces. Whether you're a seasoned cinephile or a curious newcomer, our platform is designed to help you explore and rediscover the magic of old movies.
 
 ## Features
 
@@ -40,6 +40,8 @@ If you're passionate about classic cinema and want to contribute to our platform
 
 ## Support and Feedback
 
-For any questions, concerns, or suggestions, feel free to reach out to our support team at support@classiccinemarecommender.com. Your feedback is invaluable in helping us improve and enhance your experience.
+## Support and Feedback
+
+For any questions, concerns, or suggestions, feel free to reach out directly to the developer at [maria.razymey@gmail.com](mailto:maria.razymey@gmail.com). Your feedback is invaluable in shaping and enhancing your experience with Classic Cinema Recommender.
 
 Get ready to embark on a journey through the golden age of cinema with **Classic Cinema Recommender**. Start exploring, start watching, and let the magic of classic movies transport you to a bygone era of storytelling brilliance. Happy watching! 🎬✨
