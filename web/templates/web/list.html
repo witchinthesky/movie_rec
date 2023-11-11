@@ -56,8 +56,24 @@
                 </div>
                 {% endfor %}
                 {% endif %}
-        </div>
-    
-</div>
 
+        <div class="pagination">
+            <span class="step-links">
+                {% if movies.has_previous %}
+                    <a class="btn btn-primary" href="?page=1">&laquo; first</a>
+                    <a class="btn btn-primary" href="?page={{ movies.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="fs-5">
+                    Page {{ movies.number }} of {{ movies.paginator.num_pages }}
+                </span>
+
+                {% if movies.has_next %}
+                    <a class="btn btn-primary" href="?page={{ movies.next_page_number }}">next</a>
+                    <a class="btn btn-primary" href="?page={{ movies.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+</div>
 {% endblock %}

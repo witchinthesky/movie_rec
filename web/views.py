@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Q
 from django.http import Http404
@@ -46,16 +47,41 @@ token = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNmIzZGViZmUzYWEyODI5NzQyZTBkMTQwZDRmMT
 
 # List view
 def index(request):
-    # Your TMDb API key
+    movies = Movie.objects.all().order_by('id')
 
-    movies = Movie.objects.all()
+    # Number of movies per page
+    items_per_page = 30
+    paginator = Paginator(movies, items_per_page)
+
+    # Get the current page number from the request
+    page = request.GET.get('page', 1)
+
+    try:
+        movies_page = paginator.page(page)
+    except PageNotAnInteger:
+        # If the page parameter is not an integer, show the first page
+        movies_page = paginator.page(1)
+    except EmptyPage:
+        # If the page is out of range (e.g., 9999), show the last page
+        movies_page = paginator.page(paginator.num_pages)
+
+    print(movies_page)
+    return render(request, 'web/list.html', {'movies': movies_page})
+
+''' def index(request, ind):
+    # Convert ind to an integer (if it's not already) and ensure it's non-negative
+    ind = max(int(ind), 0) * 20
+
+    # Retrieve 20 items from the database starting from the specified index
+    movies = Movie.objects.all()[ind:ind + 20]
 
     query = request.GET.get('q')
     if query:
-        movies = Movie.objects.filter(Q(title__icontains=query)).distinct()
+        movies = Movie.objects.filter(Q(title__icontains=query)).distinct()[ind:ind + 20]
         return render(request, 'web/list.html', dict(movies=movies))
-    return render(request, 'web/list.html', dict(movies=movies))
 
+    return render(request, 'web/list.html', dict(movies=movies))
+'''
 
 # detail view
 def detail(request, movie_id):
@@ -98,7 +124,7 @@ def signUp(request):
 
 
 # Login User
-def Login(request):
+def login(request):
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
