@@ -3,60 +3,177 @@
 
 {% block body %}
 
+<div class="container mt-4">
+        <div class="row">
+            <div class="col-md-4">
+                <!-- Movie Poster -->
+                <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2{{ movie.img_url }}" alt="{{ movie.title }} Poster" class="img-fluid">
+            </div>
+            <div class="col-md-8">
+                <!-- Movie Details -->
+                <h2>{{ movie.title }}</h2>
+                <h5>{{ tmdb_details.tagline }}</h5>
+                <p>{{ tmdb_details.overview }}</p>
 
-<div class="container-fluid col-sm-offset-1">
+                <h5>Release Date: {{ tmdb_details.release_date }}</h5>
+                <h5>Runtime: {{ tmdb_details.runtime }} minutes</h5>
+                <h6>Original Language: {{ tmdb_details.original_language }}</h6>
 
-    <div class="row">
+                <!-- Additional Information -->
+                <h5>Production Companies:</h5>
+                    <div class="d-flex">
+                        {% for company in tmdb_details.production_companies %}
+                            <div class="me-3">
+                                <img src="https://image.tmdb.org/t/p/w185{{ company.logo_path }}" alt="{{ company.name }} Logo" class="img-fluid" height="80" width="80">
+                            </div>
+                        {% endfor %}
+                    </div>
 
-        <!-- Left Movie Info -->
-        <div class="col-sm-2 col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <a href="#">                            
-                        <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2{{ movies.img_url}}" class="img-responsive">
-                    </a>
-                    <h2></h2>
+                <!-- Production Countries -->
+                <h5>Production Countries:</h5>
+                <div class="d-flex">
+                    {% for country in tmdb_details.production_countries %}
+                        <div class="me-3">
+                            <img src="https://flagcdn.com/48x36/{{ country.iso_3166_1|lower }}.png" alt="{{ country.name }} Flag">
+
+                        </div>
+                    {% endfor %}
                 </div>
+
+                <h5>Revenue: ${{ tmdb_details.revenue | floatformat:2 }}</h5>
+
+                <!-- Star Rating Form -->
+
+                    <div class="mb-3">
+                        <label for="rating" class="form-label">Your Rating:</label>
+                        <div class="col-md-12">
+                            <div class="stars">
+                                <form method="post" >
+                                    {% csrf_token %}
+
+                                    <input class="star star-5" id="star-5" type="radio" name="rating" value="5" required/>
+                                    <label class="star star-5" for="star-5"></label>
+
+                                    <input class="star star-4" id="star-4" type="radio" name="rating" value="4" required/>
+                                    <label class="star star-4" for="star-4"></label>
+
+                                    <input class="star star-3" id="star-3" type="radio" name="rating" value="3" required/>
+                                    <label class="star star-3" for="star-3"></label>
+
+                                    <input class="star star-2" id="star-2" type="radio" name="rating" value="2" required/>
+                                    <label class="star star-2" for="star-2"></label>
+
+                                    <input class="star star-1" id="star-1" type="radio" name="rating" value="1" required/>
+                                    <label class="star star-1" for="star-1"></label>
+
+                                    <!-- You may include additional fields like movie ID, etc., here -->
+
+                                    <button class="btn btn-primary" type="submit">Submit Rating</button>
+                                </form>
+                            </div>
+                    </div>
+
+
+</div>
             </div>
         </div>
-        <!-- Right Movie Info -->
-        <div class="col-sm-offset-1 col-sm-4 col-md-4">
-            <h1>{{movies.title}}</h1>
-            <h3><small>{{movies.genre}}</small></h3>
-        	<h1><small>Have you watched?</small></h1>
-            <h3><small>Please rate to get recommendation </small></h3>
-            {% if messages %}
-            <ul class="messages">
-            {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-            </ul>
+<div class="row">
+    <!-- Tab View for Different Data Sections -->
+                <ul class="nav nav-tabs mt-4">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="genres-tab" data-bs-toggle="tab" href="#genres">Genres</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="tags-tab" data-bs-toggle="tab" href="#tags">Tags</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="rating-tab" data-bs-toggle="tab" href="#ratings">Ratings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="actors-tab" data-bs-toggle="tab" href="#actors">Actors</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content mt-3">
+                    <!-- Genres Tab Content -->
+                    <div class="tab-pane fade show active" id="genres">
+                        {% for genre in genres %}
+                            <span class="badge bg-secondary">{{ genre }}</span>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Tags Tab Content -->
+                    <div class="tab-pane" id="tags">
+                        {% for movie_tag in tags %}
+                            <span class="badge bg-info">{{ movie_tag.tag }}</span>
+                        {% endfor %}
+                    </div>
+                    <!-- Ratings Tab Content -->
+                        <div class="tab-pane" id="ratings">
+                            <ul class="list-group list-group-flush">
+                                {% for rating in ratings %}
+                                    <li class="list-group-item list-group-item-secondary gray-100">
+                                        <div class="row mb-2">
+                                            <div class="col-md-6">
+                                                <span class="fs-6 fw-bold">{{ rating.user.username }}</span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="stars">
+                                                    <input class="star star-5" id="star-5-{{ rating.id }}" type="radio" name="star-{{ rating.id }}" {% if rating.rating == 5 %}checked{% endif %} disabled/>
+                                                    <label class="star star-5" for="star-5-{{ rating.id }}"></label>
+
+                                                    <input class="star star-4" id="star-4-{{ rating.id }}" type="radio" name="star-{{ rating.id }}" {% if rating.rating == 4 %}checked{% endif %} disabled/>
+                                                    <label class="star star-4" for="star-4-{{ rating.id }}"></label>
+
+                                                    <input class="star star-3" id="star-3-{{ rating.id }}" type="radio" name="star-{{ rating.id }}" {% if rating.rating == 3 %}checked{% endif %} disabled/>
+                                                    <label class="star star-3" for="star-3-{{ rating.id }}"></label>
+
+                                                    <input class="star star-2" id="star-2-{{ rating.id }}" type="radio" name="star-{{ rating.id }}" {% if rating.rating == 2 %}checked{% endif %} disabled/>
+                                                    <label class="star star-2" for="star-2-{{ rating.id }}"></label>
+
+                                                    <input class="star star-1" id="star-1-{{ rating.id }}" type="radio" name="star-{{ rating.id }}" {% if rating.rating == 1 %}checked{% endif %} disabled/>
+                                                    <label class="star star-1" for="star-1-{{ rating.id }}"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                        </div>
+                    <!-- Actors Tab Content -->
+                        <div class="tab-pane" id="actors">
+                            <div class="container">
+        <div class="row">
+            {% for actor in credits %}
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="card mb-4">
+                        <img src="{% if actor.profile_path %}https://image.tmdb.org/t/p/w200/{{ actor.profile_path }}{% else %}https://via.placeholder.com/200x300{% endif %}"
+                             class="card-img-top" alt="{{ actor.name }} Profile Picture" height="100%" width="100%">
+                        <div class="card-body">
+                            <h6 class="card-title">{{ actor.name }}</h6>
+                            <p class="card-text">As: {{ actor.character }}</p>
+                            <!-- Add more details as needed -->
+                        </div>
+                    </div>
+                </div>
+            {% if forloop.counter|divisibleby:3 %}
+                <div class="w-100 d-none d-sm-block d-md-none"></div> {# Add a clearfix on medium devices #}
             {% endif %}
-        <div class="col-sm-offset-0 col-sm-8">
-            <form class="form-horizontal" role="search" method="post" action="{% url 'detail' movies.id %}" onsubmit="return validateForm()"  name="ratingForm">
-            <div class="form-group">
-            <div class="input-group"> 
-             <div class="row">
-            <div class="col-lg-12">
-                  <div class="star-rating">
-                    <span class="fa fa-star-o" data-rating="1"></span>
-                    <span class="fa fa-star-o" data-rating="2"></span>
-                    <span class="fa fa-star-o" data-rating="3"></span>
-                    <span class="fa fa-star-o" data-rating="4"></span>
-                    <span class="fa fa-star-o" data-rating="5"></span>
-               <input type="hidden" name="rating" class="rating-value" value="0" >
-                {% csrf_token %}
-
-                </div>
-            </div>
-            </div>
-            <input type="submit" class="btn btn-info" value="submit">
-         </div>
-         </div>
-        </form>
-        </div>
-    </div>
+            {% if forloop.counter|divisibleby:4 %}
+                <div class="w-100 d-none d-md-block d-lg-none"></div> {# Add a clearfix on large devices #}
+            {% endif %}
+            {% if forloop.counter|divisibleby:5 %}
+                <div class="w-100 d-none d-lg-block d-xl-none"></div> {# Add a clearfix on extra-large devices #}
+            {% endif %}
+        {% endfor %}
     </div>
 </div>
+                            </div>
+                        </div>
 
+
+                </div>
+
+
+</div>
 {% endblock %}
