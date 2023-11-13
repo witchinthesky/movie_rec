@@ -2,34 +2,85 @@
 {% block title %}Recommendations{% endblock %}
 {% block body %}
 
-<div class="container-fluid">
-	<h2>Recommendations for You </h2>
-</div>
+    <div class="container main-container">
+        <div class="container-fluid">
+            <h2>Recommendations for You </h2>
+        </div>
 
 
-	<div class="container-fluid">
     
-    <!-- Movie list -->
-    <div class="row">
-            {% if movie_list %}
-            {% for movie in movie_list %}
-                <div class="col-sm-2 col-md-2 ">
-                    <div class="thumbnail">
-                        <h4>{{movie.title}}</h4>
-                        <a href="{% url 'detail' movie.id %}">
-                            <img src="{{ movie.movie_logo.url}}" class="img-responsive" alt="">
+        <!-- Movie list -->
+        <div class="row mb-4" id="masonry-container">
+                {% if liked %}
+                {% for movie in liked %}
+                    <div class="col-2 mb-3 item">
+                    <div class="card mb-4">
+                        <div class="card-header" href="{% url 'detail' movie.id %}">
+                            <h6>{{ movie.title }}</h6>
+                        </div>
+                        <a class="card shadow-sm">
+                            <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2{{ movie.img_url }}" class="card-img-top" height="100%" width="100%" style="object-fit: cover;">
                         </a>
-                        <h5>{{movie.genre}}</h5>
-                        <div class="caption">
-                            <!-- View Details -->
-                            <a href="{% url 'detail' movie.id %}" class="btn btn-primary btn-sm" role="button">Give Rating</a>
+                        <div class="card-body">
+                            <p class="card-text">{{ movie.genre }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="{% url 'detail' movie.id %}" class="btn btn-primary btn-sm" role="button">Give Rating</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                {% endfor %}
-                {% endif %}
+                    {% endfor %}
+                    {% endif %}
         </div>
     
-</div>
 
+
+        <div class="container-fluid">
+            <h2>Not Recommended for You </h2>
+        </div>
+
+
+
+        <!-- Movie list -->
+        <div class="row mb-4" id="masonry-container">
+                {% if not_liked %}
+                {% for movie in not_liked %}
+                     <div class="col-2 mb-3 item">
+                    <div class="card mb-4">
+                        <div class="card-header" href="{% url 'detail' movie.id %}">
+                            <h6>{{ movie.title }}</h6>
+                        </div>
+                        <a class="card shadow-sm">
+                            <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2{{ movie.img_url }}" class="card-img-top" height="100%" width="100%" style="object-fit: cover;">
+                        </a>
+                        <div class="card-body">
+                            <p class="card-text">{{ movie.genre }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="{% url 'detail' movie.id %}" class="btn btn-primary btn-sm" role="button">Give Rating</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    {% endfor %}
+                    {% endif %}
+        </div>
+    </div>
+
+    <!-- Masonry Initialization Script -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/masonry.js"></script>
+<script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/imagesLoaded.js"></script>
+
+<script type="text/javascript">
+    // Initialize Masonry after images have loaded
+    $(document).ready(function () {
+        var $container = $('#masonry-container');
+        $container.imagesLoaded(function () {
+            $container.masonry({
+                columnWidth: '.item',
+                itemSelector: '.item'
+            });
+        });
+    });
+</script>
 {% endblock %}

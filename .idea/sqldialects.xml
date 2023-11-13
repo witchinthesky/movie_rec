@@ -3,5 +3,6 @@
   <component name="SqlDialectMappings">
     <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/38a76b16-e5fc-40e5-81f8-615e4e6122f3/console.sql" dialect="SQLite" />
     <file url="file://$USER_HOME$/Downloads/movie_poster.csv" dialect="SQLite" />
+    <file url="file://$PROJECT_DIR$/web/scripts/compute_similarity.py" dialect="GenericSQL" />
   </component>
 </project>
