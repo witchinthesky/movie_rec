@@ -4,7 +4,7 @@
 
     <div class="container main-container">
         <div class="container-fluid">
-            <h2>Recommendations for You </h2>
+            <h2 class="my-4">Recommendations for You </h2>
         </div>
 
 
@@ -13,22 +13,20 @@
         <div class="row mb-4" id="masonry-container">
                 {% if liked %}
                 {% for movie in liked %}
-                    <div class="col-2 mb-3 item">
-                    <div class="card mb-4">
-                        <div class="card-header" href="{% url 'detail' movie.id %}">
-                            <h6>{{ movie.title }}</h6>
-                        </div>
-                        <a class="card shadow-sm">
-                            <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2{{ movie.img_url }}" class="card-img-top" height="100%" width="100%" style="object-fit: cover;">
-                        </a>
-                        <div class="card-body">
-                            <p class="card-text">{{ movie.genre }}</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="{% url 'detail' movie.id %}" class="btn btn-primary btn-sm" role="button">Give Rating</a>
+                     <div class="col-2 mb-3 item">
+                        <div class="shadow card">
+                            <a class="card shadow-sm"  href="{% url 'detail' movie.id %}">
+                                <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2{{ movie.img_url }}" class="card-img-top" height="100%" width="100%" style="object-fit: cover;">
+                            </a>
+                            <div class="card-body">
+                                <a class="link-dark link-underline-opacity-0"  href="{% url 'detail' movie.id %}">
+                                    <p class="fw-bold">
+                                        {{ movie.title }}
+                                    </p>
+                                </a>
                             </div>
                         </div>
                     </div>
-                </div>
                     {% endfor %}
                     {% endif %}
         </div>
@@ -36,7 +34,7 @@
 
 
         <div class="container-fluid">
-            <h2>Not Recommended for You </h2>
+            <h2 class="my-4">Not Recommended for You </h2>
         </div>
 
 
@@ -45,22 +43,20 @@
         <div class="row mb-4" id="masonry-container">
                 {% if not_liked %}
                 {% for movie in not_liked %}
-                     <div class="col-2 mb-3 item">
-                    <div class="card mb-4">
-                        <div class="card-header" href="{% url 'detail' movie.id %}">
-                            <h6>{{ movie.title }}</h6>
-                        </div>
-                        <a class="card shadow-sm">
-                            <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2{{ movie.img_url }}" class="card-img-top" height="100%" width="100%" style="object-fit: cover;">
-                        </a>
-                        <div class="card-body">
-                            <p class="card-text">{{ movie.genre }}</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="{% url 'detail' movie.id %}" class="btn btn-primary btn-sm" role="button">Give Rating</a>
+                      <div class="col-2 mb-3 item">
+                        <div class="shadow card">
+                            <a class="card shadow-sm"  href="{% url 'detail' movie.id %}">
+                                <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2{{ movie.img_url }}" class="card-img-top" height="100%" width="100%" style="object-fit: cover;">
+                            </a>
+                            <div class="card-body">
+                                <a class="link-dark link-underline-opacity-0"  href="{% url 'detail' movie.id %}">
+                                    <p class="fw-bold">
+                                        {{ movie.title }}
+                                    </p>
+                                </a>
                             </div>
                         </div>
                     </div>
-                </div>
                     {% endfor %}
                     {% endif %}
         </div>

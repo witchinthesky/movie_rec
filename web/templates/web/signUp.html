@@ -1,31 +1,45 @@
 {% extends 'web/base.html'%}
 {% block title %}Register{% endblock %}
 {% block body %}
-<div class="container center">
-	<div class="container-xxl">
+{% load static %}
 
-        <div class="row justify-content-center">
-             <div class="col-4">
-
-                    <h3>Register for an Account</h3>
-                    {% if error_message %}
+    <div class="container center">
+                 <div class="container">
+                  <div class="row justify-content-center">
+                    <div class="col-4 my-4">
+                      <div class="center-block text-center">
+                        <img src="{% static 'icons/red-carpet.gif' %}" alt="" width="200" height="200">
+                      </div>
+                      <h3 class="text-center">Sign Up</h3>
+                        <p class="text-center">Let's start  your journey!</p>
+                      {% if error_message %}
                         <p><strong>{{ error_message }}</strong></p>
-                    {% endif %}
-                    <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+                      {% endif %}
+                      <form class="form-horizontal" role="form" action="#" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
-                        {% include 'web/form_template.html' %}
                         <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-success">Submit</button>
-                            </div>
+                          <label class="control-label" for="id_username">Username:</label>
+                          <input class="form-control" id="id_username" maxlength="30" name="username" type="text">
                         </div>
-                    </form>
+                          <div class="form-group">
+                          <label class="control-label" for="id_email">Email:</label>
+                          <input class="form-control" id="id_email" maxlength="30" name="email" type="email">
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label" for="id_password">Password:</label>
+                          <input class="form-control" id="id_password" maxlength="30" name="password" type="password">
+                        </div>
+                          <div class="center-block text-center my-3">
+                              <button type="submit" class="btn btn-dark">Submit</button>
+                          </div>
 
-                <div class="panel-footer">
-                    Already have an account? <a href="{% url 'login' %}">Click here</a> to log in.
+                      </form>
+                      <div class="panel-footer">
+                            Already have an account? <a class="link-dark fw-bold" href="{% url 'login' %}">Click here</a> to log in.
+                        </div>
+                    </div>
+                  </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+
 {% endblock %}

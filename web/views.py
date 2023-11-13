@@ -181,7 +181,9 @@ def handle_server_error(request, *args, **argv):
 
 def user_ratings(request):
     user_ratings = Rating.objects.filter(user=request.user).select_related('movie')
-    context = {'user_ratings': user_ratings}
+    context = {'user_ratings': user_ratings,
+               'username': request.user.username
+               }
     return render(request, 'web/user-page.html', context)
 
 

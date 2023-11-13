@@ -4,20 +4,22 @@
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>{% block title %}Movies{% endblock title %}</title>
+    <title>{% block title %}Memory Reels{% endblock title %}</title>
     {% load static %}
 
-	<!-- <link rel="stylesheet" type="text/css" href="{% static 'web/css/bootstrap.min.css'%}">-->
+    <link rel="icon" type="image/png" href="{% static 'icons/film-tape.png' %}">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css' >
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css">
+
+    <!-- bootstrap script -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.9/js/star-rating.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" async></script>
     <!-- Initialize the star rating plugin -->
     <!-- star rating -->
@@ -43,9 +45,9 @@
         label.star {
 
           float: right;
-          padding: 10px;
+          padding: 5px;
           font-size: 36px;
-          color: #0d6dfb;
+          color: #212529;
           transition: all .2s;
 
         }
@@ -53,19 +55,19 @@
         input.star:checked ~ label.star:before {
 
           content: '\f005';
-          color: #0d6dfb;
+          color: #212529;
           transition: all .25s;
 
         }
 
         input.star-5:checked ~ label.star:before {
 
-          color: #0d6dfb;
+          color: #212529;
           text-shadow: 0 0 20px #65666e;
 
         }
 
-        input.star-1:checked ~ label.star:before { color: #0d6cf9; }
+        input.star-1:checked ~ label.star:before { color: #212529; }
 
         /* Style for enabled stars on hover */
         .stars label.star:not([disabled]):hover {
@@ -79,69 +81,91 @@
 }
     </style>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
 <!-- generic header of page !-->
     <div class="container text-center">
         <div class="container-xxl">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        
-            <!-- logo -->
-            
-            <a href="{% url 'index' %}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" fill="currentColor" class="bi bi-film" viewBox="0 0 16 16">
-                    <path d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm4 0v6h8V1H4zm8 8H4v6h8V9zM1 1v2h2V1H1zm2 3H1v2h2V4zM1 7v2h2V7H1zm2 3H1v2h2v-2zm-2 3v2h2v-2H1zM15 1h-2v2h2V1zm-2 3v2h2V4h-2zm2 3h-2v2h2V7zm-2 3v2h2v-2h-2zm2 3h-2v2h2v-2z"/>
-                </svg>
-                <span class="fs-4">Dionysus</span>
-            </a>
-            <!-- items -->
-            <div class="col-md-3 text-end">
-                {% if not request.user.is_authenticated %}
-                    <a role="button" class="btn btn-primary" href="{% url 'signup' %}">Sign-up</a>
-                    <a role="button" class="btn btn-primary" href="{% url 'login' %}">Login</a>
-                {% else %}
-                    <a role="button" class="btn btn-primary" href="{% url 'recommend' %}">Get Recommendations</a>
-                    <a role="button" class="btn btn-primary" href="{% url 'userPage' %}">Watch my Ratings</a>
-                    <a role="button" class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
-                {% endif %}
+        <nav class="navbar navbar-light grey-100">
+
+                <!-- logo and site name -->
+                <a href="{% url 'index' %}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+                    <img src="{% static 'icons/film-tape.gif' %}" alt="" width="64" height="64">
+                    <span class="navbar-brand mb-0 h1">Memory Reels</span>
+                </a>
+
+                <!-- items -->
+                <div class="col-md-6 text-end">
+                    {% if not request.user.is_authenticated %}
+                        <a role="button" class="btn btn-outline-dark" href="{% url 'signup' %}">
+                            <img src="{% static 'icons/add-user.gif' %}" alt="" width="24" height="24">
+                            Sign-up
+                        </a>
+                        <a role="button" class="btn btn-outline-dark" href="{% url 'login' %}">
+                            <img src="{% static 'icons/phishing.gif' %}" alt="" width="24" height="24">
+                            Login
+                        </a>
+                    {% else %}
+                        <a role="button" class="btn btn-outline-dark" href="{% url 'recommend' %}">
+                            <img src="{% static 'icons/heart.gif' %}" alt="" width="24" height="24">
+                            Get Recommendations
+                        </a>
+                        <a role="button" class="btn btn-outline-dark" href="{% url 'userPage' %}">
+                            <img src="{% static 'icons/line-bars.gif' %}" alt="" width="24" height="24">
+                            My Ratings
+                        </a>
+                        <a role="button" class="btn btn-outline-dark" href="{% url 'logout' %}">
+                            <img src="{% static 'icons/knight.gif' %}" alt="" width="24" height="24">
+                            Logout
+                        </a>
+                    {% endif %}
+                </div>
+            </nav>
         </div>
-        
-    </nav>
-</div>
-</div>
+    </div>
 
     {% block body %}
     {% endblock %}
 
-<footer class="bg-dark text-light p-4">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <h5>Contact Us</h5>
-                <p>Email: 	maria.razymey@gmail.com</p>
+    <footer class="mt-auto bg-dark text-light p-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <h5>Contact Us</h5>
+                    <p>Email: 	maria.razymey@gmail.com</p>
 
+                </div>
+
+                <div class="col-4">
+                    <h5>Quick Links</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="{% url 'index' %}" class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Home</a></li>
+                            <li><a href="{% url 'about_us' %}" class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">About Us</a></li>
+                            <li><a href="{% url 'contact_us' %}" class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Contact</a></li>
+                        </ul>
+                </div>
+
+                <div class="col-4 d-flex flex-column align-items-end">
+                    <h5>Follow Me</h5>
+                    <div class="col-pt-4 mt-2">
+                        <ul class="list-inline">
+                            <li class="list-inline-item"><a href="#" target="_blank">
+                                <img src="{% static 'icons/twitter.png' %}" alt="" width="16" height="16">
+                            </a></li>
+                            <li class="list-inline-item"><a href="#" target="_blank">
+                                <img src="{% static 'icons/facebook-app-symbol.png' %}" alt="" width="16" height="16">
+                            </a></li>
+                            <li class="list-inline-item"><a href="#" target="_blank">
+                                <img src="{% static 'icons/linkedin.png' %}" alt="" width="16" height="16">
+                            </a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4">
-                <h5>Quick Links</h5>
-                <ul class="list-unstyled">
-                    <li><a href="{% url 'index' %}">Home</a></li>
-                    <li><a href="{% url 'about_us' %}">About Us</a></li>
-                    <li><a href="{% url 'contact_us' %}">Contact</a></li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <h5>Follow Us</h5>
-                <ul class="list-inline">
-                    <li class="list-inline-item"><a href="#" target="_blank"><i class="fab fa-facebook"></i></a></li>
-                    <li class="list-inline-item"><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-                    <li class="list-inline-item"><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
-                </ul>
-            </div>
+            <hr class="my-4">
+            <p>&copy; 2023 Memory Reels. All rights reserved.</p>
         </div>
-        <hr class="my-4">
-        <p>&copy; 2023 Movie Recommendation Site. All rights reserved.</p>
-    </div>
-</footer>
+    </footer>
 
 </body>
 </html>

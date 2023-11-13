@@ -5,10 +5,13 @@
 <div class="container text-center">
     <div class="container-xxl">
         <div class="col-xs-6 col-xs-offset-3">
+            <h2 class="m-5">
+                Embark on a cinematic journey through the golden age of film with Memory Reels!
+            </h2>
             <form method="get" action="{% url 'index' %}">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Search movies" name="q" value="{{ search_query }}">
-                    <button class="btn btn-outline-secondary" type="submit">Search</button>
+                    <button class="btn btn-dark" type="submit">Search</button>
                 </div>
             </form>
         </div>
@@ -24,49 +27,83 @@
 {% endif %}
 
 <div class="container main-container">
-    <h1>Movies List</h1>
+    <div class="container-xxl">
+        <div class="col-xs-6 col-xs-offset-3">
+        <h2 class="my-4">Movies List</h2>
 
-    <!-- Masonry Movie list -->
-    <div class="row mb-4" id="masonry-container">
-        {% if movies %}
-            {% for movie in movies %}
-                <div class="col-2 mb-3 item">
-                    <div class="card mb-4">
-                        <div class="card-header" href="{% url 'detail' movie.id %}">
-                            <h4>{{ movie.title }}</h4>
-                        </div>
-                        <a class="card shadow-sm">
-                            <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2{{ movie.img_url }}" class="card-img-top" height="100%" width="100%" style="object-fit: cover;">
-                        </a>
-                        <div class="card-body">
-                            <p class="card-text">{{ movie.genre }}</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="{% url 'detail' movie.id %}" class="btn btn-primary btn-sm" role="button">Give Rating</a>
+        <!-- Masonry Movie list -->
+        <div class="row mb-4" id="masonry-container">
+            {% if movies %}
+                {% for movie in movies %}
+                    <div class="col-2 mb-3 item">
+                        <div class="shadow card">
+                            <a class="card shadow-sm"  href="{% url 'detail' movie.id %}">
+                                <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2{{ movie.img_url }}" class="card-img-top" height="100%" width="100%" style="object-fit: cover;">
+                            </a>
+                            <div class="card-body">
+                                <a class="link-dark link-underline-opacity-0"  href="{% url 'detail' movie.id %}">
+                                    <p class="fw-bold">
+                                        {{ movie.title }}
+                                    </p>
+                                </a>
                             </div>
                         </div>
                     </div>
-                </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="pagination d-flex justify-content-center mb-4">
+
+        <!--  pagination -->
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+            {% if movies.has_previous %}
+                <li class="page-item">
+                <a class="page-link" href="?page={{ movies.previous_page_number }}">Previous</a>
+              </li>
+            {% else %}
+                <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="True">Previous</a>
+              </li>
+            {% endif %}
+
+            {% if movies.number|add:'-4' > 1 %}
+                <li class="page-item"><a class="page-link" href="?page={{ movies.number|add:'-5' }}">&hellip;</a></li>
+            {% endif %}
+
+            {% for i in movies.paginator.page_range %}
+                {% if movies.number == i %}
+                    <li class="page-item bg-dark-subtle active" aria-current="page">
+                  <span class="page-link">
+                    {{ i }}
+                  </span>
+                </li>
+                {% elif i > movies.number|add:'-5' and i < movies.number|add:'5' %}
+                     <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
             {% endfor %}
-        {% endif %}
-    </div>
 
-    <div class="pagination d-flex justify-content-center mb-4">
-    <span class="step-links">
-        {% if movies.has_previous %}
-            <a class="btn btn-primary" href="?page=1">&laquo; first</a>
-            <a class="btn btn-primary" href="?page={{ movies.previous_page_number }}">previous</a>
-        {% endif %}
+            {% if movies.paginator.num_pages > movies.number|add:'4' %}
+               <li class="page-item"><a class="page-link" href="?page={{ movies.number|add:'5' }}">&hellip;</a></li>
+            {% endif %}
 
-        <span class="fs-5">
-            Page {{ movies.number }} of {{ movies.paginator.num_pages }}
-        </span>
+            {% if movies.has_next %}
+                <li class="page-item">
+                <a class="page-link" href="?page={{ movies.next_page_number }}">Next</a>
+              </li>
+            {% else %}
+                <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="True">Next</a>
+              </li>
+            {% endif %}
+          </ul>
+        </nav>
 
-        {% if movies.has_next %}
-            <a class="btn btn-primary" href="?page={{ movies.next_page_number }}">next</a>
-            <a class="btn btn-primary" href="?page={{ movies.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
 </div>
+</div>
+    </div>
 </div>
 
 

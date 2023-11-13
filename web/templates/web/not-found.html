@@ -1,13 +1,24 @@
 {% extends 'web/base.html'%}
 {% block body %}
-<div style="width: 100%; height: 100%; position: relative">
-    <div style="left: 29px; top: 196px; position: absolute; color: black; font-size: 16px; font-family: Inter; font-weight: 400; word-wrap: break-word">Sorry, we couldn’t find the page you’re looking for :( <br/>It seems like it got lost during production</div>
-        <div style="left: 29px; top: 141px; position: absolute; color: black; font-size: 36px; font-family: Inter; font-weight: 700; word-wrap: break-word">Page lost in production </div>
-        <div style="left: 29px; top: 14px; position: absolute; color: black; font-size: 96px; font-family: Inter; font-weight: 400; word-wrap: break-word">Error 404</div>
-        <img style="width: 849px; height: 767px; left: 406px; top: -123px; position: absolute" src="https://gifdb.com/images/high/confused-actor-john-travolta-white-scene-or24i47safpb0zob.gif" />
-        <div style="padding-left: 16px; padding-right: 16px; padding-top: 6px; padding-bottom: 6px; left: 29px; top: 254px; position: absolute; background: #7749F8; border-radius: 6px; justify-content: flex-start; align-items: flex-start; display: inline-flex">
-        <div style="color: white; font-size: 16px; font-family: Inter; font-weight: 400; line-height: 28px; word-wrap: break-word">Return Home</div>
+<div class="d-flex justify-content-center align-items-center" style="height: 100vh; position: relative;">
+    <div class="text-center" style="color: black; font-size: 16px; font-weight: 400; word-wrap: break-word; position: absolute; left: 29px; top: 196px;">
+        Sorry, we couldn’t find the page you’re looking for :( <br />It seems like it got lost during production
+    </div>
+    <div class="text-center" style="color: black; font-size: 36px; font-weight: 700; word-wrap: break-word; position: absolute; left: 29px; top: 141px;">
+        Page lost in production
+    </div>
+    <div class="text-center" style="color: black; font-size: 96px; font-weight: 400; word-wrap: break-word; position: absolute; left: 29px; top: 14px;">
+        Error 404
+    </div>
+    <img src="https://gifdb.com/images/high/confused-actor-john-travolta-white-scene-or24i47safpb0zob.gif"
+         class="img-fluid"
+         style="width: 849px; height: 767px; left: 406px; top: -123px; position: absolute;"
+         alt="404 Image"
+    />
+    <div class="bg-primary text-white px-3 py-2 rounded" style="position: absolute; left: 29px; top: 254px;">
+        <div class="font-family: Inter; font-weight: 400; line-height: 28px; word-wrap: break-word">
+            <a href="/" class="text-white text-decoration-none">Return Home</a>
+        </div>
     </div>
 </div>
-
 {% endblock %}

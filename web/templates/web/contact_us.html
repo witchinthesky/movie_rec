@@ -3,25 +3,37 @@
 {% block title %}Contact Us{% endblock %}
 
 {% block body %}
+    {% load static %}
 <div class="container mt-5 mb-6">
-    <h1>Contact Us</h1>
-    <p>We'd love to hear from you!</p>
+    <div class="row">
+        <!-- Form on the left -->
+        <div class="col-md-8">
+            <h1>Contact Us</h1>
+            <p>We'd love to hear from you!</p>
 
-    <form action="{% url 'contact_us' %}" method="post">
-        {% csrf_token %}
-        <div class="mb-3">
-            <label for="name" class="form-label">Your Name</label>
-            <input type="text" class="form-control" id="name" name="name" required>
+            <form action="{% url 'contact_us' %}" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="name" class="form-label">Your Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Your Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Your Message</label>
+                    <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
         </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">Your Email</label>
-            <input type="email" class="form-control" id="email" name="email" required>
+
+        <!-- Image on the right -->
+        <div class="col-md-4 d-flex align-items-center">
+            <img src="{% static 'icons/agenda.gif' %}" width="400" height="400">
         </div>
-        <div class="mb-3">
-            <label for="message" class="form-label">Your Message</label>
-            <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    </div>
 </div>
+
 {% endblock %}

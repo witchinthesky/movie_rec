@@ -11,76 +11,56 @@
             </div>
             <div class="col-md-8">
                 <!-- Movie Details -->
-                <h2>{{ movie.title }}</h2>
+                <h2 class="mb-4">{{ movie.title }}</h2>
                 <h5>{{ tmdb_details.tagline }}</h5>
                 <p>{{ tmdb_details.overview }}</p>
 
                 <h5>Release Date: {{ tmdb_details.release_date }}</h5>
                 <h5>Runtime: {{ tmdb_details.runtime }} minutes</h5>
-                <h6>Original Language: {{ tmdb_details.original_language }}</h6>
-
-                <!-- Additional Information -->
-                <h5>Production Companies:</h5>
-                    <div class="d-flex">
-                        {% for company in tmdb_details.production_companies %}
-                            <div class="me-3">
-                                <img src="https://image.tmdb.org/t/p/w185{{ company.logo_path }}" alt="{{ company.name }} Logo" class="img-fluid" height="80" width="80">
-                            </div>
-                        {% endfor %}
-                    </div>
 
                 <!-- Production Countries -->
                 <h5>Production Countries:</h5>
                 <div class="d-flex">
                     {% for country in tmdb_details.production_countries %}
                         <div class="me-3">
-                            <img src="https://flagcdn.com/48x36/{{ country.iso_3166_1|lower }}.png" alt="{{ country.name }} Flag">
+                            <img src="https://flagcdn.com/24x18/{{ country.iso_3166_1|lower }}.png" alt="{{ country.name }} Flag">
 
                         </div>
                     {% endfor %}
                 </div>
 
-                <h5>Revenue: ${{ tmdb_details.revenue | floatformat:2 }}</h5>
-
                 <!-- Star Rating Form -->
 
-                    <div class="mb-3">
-                        <label for="rating" class="form-label">Your Rating:</label>
-                        <div class="col-md-12">
-                            <div class="stars">
-                                <form method="post" >
-                                    {% csrf_token %}
 
+                        <h5 class="form-label">Your Rating:</h5>
+                        <form method="post">
+                            {% csrf_token %}
                                     <input class="star star-5" id="star-5" type="radio" name="rating" value="5" required/>
-                                    <label class="star star-5" for="star-5"></label>
+                                    <label class="star star-5" for="star-5" ></label>
 
                                     <input class="star star-4" id="star-4" type="radio" name="rating" value="4" required/>
-                                    <label class="star star-4" for="star-4"></label>
+                                    <label class="star star-4" for="star-4" ></label>
 
                                     <input class="star star-3" id="star-3" type="radio" name="rating" value="3" required/>
-                                    <label class="star star-3" for="star-3"></label>
+                                    <label class="star star-3" for="star-3" ></label>
 
                                     <input class="star star-2" id="star-2" type="radio" name="rating" value="2" required/>
-                                    <label class="star star-2" for="star-2"></label>
+                                    <label class="star star-2" for="star-2" ></label>
 
                                     <input class="star star-1" id="star-1" type="radio" name="rating" value="1" required/>
-                                    <label class="star star-1" for="star-1"></label>
+                                    <label class="star star-1" for="star-1" ></label>
+                            <!-- You may include additional fields like movie ID, etc., here -->
 
-                                    <!-- You may include additional fields like movie ID, etc., here -->
+                                    <button class="btn btn-dark" type="submit">Submit Rating</button>
 
-                                    <button class="btn btn-primary" type="submit">Submit Rating</button>
-                                </form>
-                            </div>
-                    </div>
+                        </form>
 
-
-</div>
             </div>
         </div>
 <div class="row">
     <!-- Tab View for Different Data Sections -->
                 <ul class="nav nav-tabs mt-4">
-                    <li class="nav-item">
+                    <li class="nav-item dark">
                         <a class="nav-link active" id="genres-tab" data-bs-toggle="tab" href="#genres">Genres</a>
                     </li>
                     <li class="nav-item">
