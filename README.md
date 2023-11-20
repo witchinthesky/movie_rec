@@ -20,7 +20,7 @@ Welcome to **Memory Reels**, your go-to source for discovering and enjoying time
    - Share your thoughts and insights with the community by leaving reviews and ratings.
    - Discover what other classic movie enthusiasts think and engage in discussions about your favorite films.
 
-## How to Get Started
+## How to Get Started 🚀
 
 1. **Sign Up or Log In**
    - Create a personalized account to unlock the full potential of our recommendation system.
@@ -38,8 +38,8 @@ Welcome to **Memory Reels**, your go-to source for discovering and enjoying time
 
 If you're passionate about classic cinema and want to contribute to our platform, we welcome your input! Whether it's suggesting movies to add to our collections or providing feedback on the user experience, your contributions help make this community thrive.
 
-## Support and Feedback
+## Support and Feedback 👥
 
-For any questions, concerns, or suggestions, feel free to reach out directly to the developer at [maria.razymey@gmail.com](mailto:maria.razymey@gmail.com). Your feedback is invaluable in shaping and enhancing your experience with Classic Cinema Recommender.
+For any questions, concerns, or suggestions, feel free to reach out directly to the developer at [maria.razymey@gmail.com](mailto:maria.razymey@gmail.com). Your feedback is invaluable in shaping and enhancing your experience with Classic Cinema Recommender. ❓ ❗ 
 
 Get ready to embark on a journey through the golden age of cinema with **Classic Cinema Recommender**. Start exploring, start watching, and let the magic of classic movies transport you to a bygone era of storytelling brilliance. Happy watching! 🎬✨
