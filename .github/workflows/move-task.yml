@@ -1,0 +1,21 @@
+name: Move Task After PR Merge
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  move-task:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Move Task After PR Merge
+        run: |
+          PR_NUMBER=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+          PROJECT_NUMBER=$(grep -oP "(?<=Fixes #)\d+" <<< "$(gh pr view $PR_NUMBER -q '.base.repo.full_name, .base.repo.default_branch, .base.ref')")
+          gh project card move $PROJECT_NUMBER --position top
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
